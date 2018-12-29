@@ -7,6 +7,31 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="125*"/>
+            <RowDefinition Height="170*"/>
+            <RowDefinition Height="125*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230*"/>
+            <ColumnDefinition Width="335*"/>
+            <ColumnDefinition Width="230*"/>
+        </Grid.ColumnDefinitions>
+        <ListView Grid.Column="1" HorizontalAlignment="Left" MinHeight="236" Margin="0,15,0,0" VerticalAlignment="Top" MinWidth="334" Grid.RowSpan="2" Name="listViewFiler">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Start Selvopdatering" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Width="120" Margin="200,52,0,52"/>
+        <Button Content="Åbn" Grid.Column="2" HorizontalAlignment="Left" Margin="100,52,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Name="ButtonOpen" Click="ButtonOpen_Click"/>
+        <Button Content="Find Opdatering" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Grid.Column="1" Margin="10,52,0,0" Grid.Row="2" Click="Button_Click"/>
+        <ProgressBar Name="progressBar1"  Grid.Column="2" HorizontalAlignment="Left" Margin="73,93,0,67" Grid.Row="1" Width="100"/>
+        <Label Name="labelspeed" Content="" Grid.Column="2" HorizontalAlignment="Left" Margin="109,108,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Label Name="labelperc" Content="" Grid.Column="2" HorizontalAlignment="Left" Margin="111,139,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Button Content="gzipdwnload" Name="Button_Gzip" Click="Button_Gzip_Click" HorizontalAlignment="Left" Margin="104,72,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75"/>
+        <Label Name="labeldownloadet" Content="" Grid.Column="2" HorizontalAlignment="Left" Margin="111,0,0,0" Grid.Row="2" VerticalAlignment="Top"/>
     </Grid>
 </Window>
+
