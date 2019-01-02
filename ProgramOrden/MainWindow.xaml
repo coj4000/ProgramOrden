@@ -32,6 +32,7 @@
         <Label Name="labelperc" Content="" Grid.Column="2" HorizontalAlignment="Left" Margin="111,139,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         <Button Content="gzipdwnload" Name="Button_Gzip" Click="Button_Gzip_Click" HorizontalAlignment="Left" Margin="104,72,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75"/>
         <Label Name="labeldownloadet" Content="" Grid.Column="2" HorizontalAlignment="Left" Margin="111,0,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+        <Button Content="Opdater Automatisk" Grid.Column="1" Name="ButtonAuto" HorizontalAlignment="Left" Margin="10,94,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" Click="ButtonAuto_Click" />
     </Grid>
 </Window>
 

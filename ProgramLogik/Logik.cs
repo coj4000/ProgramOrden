@@ -56,7 +56,7 @@ namespace ProgramLogik
             FindDirectories(path, listeStrings);
             foreach (string item in listeStrings)
             {
-                if (item.Contains("Nox.exe"))
+                if (item.Contains("Nox.exe") || item.Contains("soffice.exe"))
                 {
                     logicList.Add(item);
                 }
@@ -82,12 +82,23 @@ namespace ProgramLogik
         }
         public bool FileSiteVersion(string filename)
         {
-            var versionInfo = FileVersionInfo.GetVersionInfo(filename).FileVersion;
-            string version = versionInfo.Replace("V.", "");
+            string version = "";
+            if (filename.Contains("Nox.exe"))
+            {
+                var versionInfo = FileVersionInfo.GetVersionInfo(filename).FileVersion;
+                version = versionInfo.Replace("V.", "");
+            }
+            if (filename.Contains("soffice.exe"))
+            {
+                var versionNavn = FileVersionInfo.GetVersionInfo(filename).FileDescription;
+                string infoversion = versionNavn;
+                version = @"Apache OpenOffice " + infoversion + " released ";
+
+            }
 
             string pageinfo = "";
             bool oldversion = false;
-            if (filename.Contains("Nox"))
+            if (filename.Contains("Nox.exe"))
             {
                 //var client = new RestClient("https://www.bignox.com/");
                 //var reguest = new RestRequest("", Method.GET);
@@ -100,14 +111,32 @@ namespace ProgramLogik
                 {
                     client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
                     pageinfo = client.DownloadString(@"https://www.bignox.com/");
-                }
-                if (!pageinfo.Contains(version))
-                {
-                    oldversion = true;
-                }
 
-
+                }
             }
+            if (filename.Contains("soffice.exe"))
+            {
+                //var client = new RestClient("https://www.bignox.com/");
+                //var reguest = new RestRequest("", Method.GET);
+
+                //client.ExecuteAsync(reguest, response =>
+                //{
+                //    pageinfo = response.Content.ToString();
+                //});
+                using (WebClient client = new WebClient())
+                {
+                    client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+                    //pageinfo = client.DownloadString(@"https://sourceforge.net/projects/openofficeorg.mirror/files/latest/download");
+
+                    pageinfo = client.DownloadString(@"https://www.openoffice.org/product/index.html");
+                }
+            }
+            if (!pageinfo.Contains(version))
+            {
+                oldversion = true;
+            }
+
+
             return oldversion;
         }
 

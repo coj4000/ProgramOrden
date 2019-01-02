@@ -28,9 +28,13 @@ namespace ProgramOrden
     {
         Logik logikinst = new Logik();
         Stopwatch sw = new Stopwatch();
+        private bool noxdone = false;
+        private bool ooficedone = false;
+        List<string> listviewinf = new List<string>();
         public MainWindow()
         {
             Logik logik = new Logik(@"C:\");
+            listviewinf = logik.logicList;
             InitializeComponent();
             listViewFiler.ItemsSource = logik.logicList;
         }
@@ -42,22 +46,34 @@ namespace ProgramOrden
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (File.Exists(@"Overførsler\NoxInstall.exe"))
-            {
-                File.Delete(@"Overførsler\NoxInstall.exe");
-            }
+           
             
             string listesti = listViewFiler.SelectedValue.ToString();
             bool update = logikinst.FileSiteVersion(listesti);
-            var versionInfo = FileVersionInfo.GetVersionInfo(listesti).FileVersion;
-            string version = versionInfo.Replace("V.", "");
-            MessageBox.Show(version);
+            if (listesti.Contains("Nox.exe"))
+            {
+                var versionInfo = FileVersionInfo.GetVersionInfo(listesti).FileVersion;
+                string version = versionInfo.Replace("V.", "");
+
+                MessageBox.Show(version);
+            }
+            if(listesti.Contains("soffice.exe"))
+            {
+                var versionNavn = FileVersionInfo.GetVersionInfo(listesti).FileDescription;
+                string version = versionNavn;
+
+                MessageBox.Show(version);
+            }
+            
             if (listesti.Contains("Nox.exe") && update == true)
             {
                 MessageBoxResult result = MessageBox.Show("Der er en ny version af programmet, Vil du opdatere?", "Spørgsmål", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
-
+                    if (File.Exists(@"Overførsler\NoxInstall.exe"))
+                    {
+                        File.Delete(@"Overførsler\NoxInstall.exe");
+                    }
                     MessageBox.Show("Ny version hentes");
                     string url = @"https://www.bignox.com/en/download/fullPackage";
 
@@ -68,6 +84,36 @@ namespace ProgramOrden
                     try
                     {
                         clientweb.DownloadFileAsync(new Uri(url), @"Overførsler\NoxInstall.exe");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
+            else if (listesti.Contains("Nox.exe") && update == false)
+            {
+                noxdone = true;
+            }
+            if (listesti.Contains("soffice.exe") && update == true/* && noxdone == true*/)
+            {
+                MessageBoxResult result = MessageBox.Show("Der er en ny version af programmet, Vil du opdatere?", "Spørgsmål", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    if (File.Exists(@"Overførsler\OpenOfficeInstall.exe"))
+                    {
+                        File.Delete(@"Overførsler\OpenOfficeInstall.exe");
+                    }
+                    MessageBox.Show("Ny version hentes");
+                    string url = @"https://sourceforge.net/projects/openofficeorg.mirror/files/latest/download";
+
+                    WebClient clientweb = new WebClient();
+                    clientweb.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(Client1_DownloadCompleted);
+                    clientweb.DownloadProgressChanged += new DownloadProgressChangedEventHandler(Client_ProgressChanged);
+                    sw.Start();
+                    try
+                    {
+                        clientweb.DownloadFileAsync(new Uri(url), @"Overførsler\OpenOfficeInstall.exe");
                     }
                     catch (Exception ex)
                     {
@@ -109,6 +155,24 @@ namespace ProgramOrden
             }
             labeldownloadet.Content = "";
             labelspeed.Content = "";
+            labelperc.Content = "";
+            noxdone = true;
+
+
+        }
+        private void Client1_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            sw.Reset();
+
+            MessageBoxResult result = MessageBox.Show("Vil du opdatere programmet nu?", "Spørgsmål", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                UpdateFil(@"Overførsler\OpenOfficeInstall.exe");
+            }
+            labeldownloadet.Content = "";
+            labelspeed.Content = "";
+            labelperc.Content = "";
+            ooficedone = true;
 
         }
         private void UpdateFil(string filnavn)
@@ -136,6 +200,91 @@ namespace ProgramOrden
                         }
                     }
                 }
+            }
+        }
+
+        private void ButtonAuto_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in listviewinf)
+            {
+
+            bool update = logikinst.FileSiteVersion(item);
+            if (item.Contains("Nox.exe"))
+            {
+                var versionInfo = FileVersionInfo.GetVersionInfo(item).FileVersion;
+                string version = versionInfo.Replace("V.", "");
+
+                MessageBox.Show(version);
+            }
+            if (item.Contains("soffice.exe"))
+            {
+                var versionNavn = FileVersionInfo.GetVersionInfo(item).FileDescription;
+                string version = versionNavn;
+
+                MessageBox.Show(version);
+            }
+
+            if (item.Contains("Nox.exe") && update == true)
+            {
+                MessageBoxResult result = MessageBox.Show("Der er en ny version af programmet, Vil du opdatere?", "Spørgsmål", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    if (File.Exists(@"Overførsler\NoxInstall.exe"))
+                    {
+                        File.Delete(@"Overførsler\NoxInstall.exe");
+                    }
+                    MessageBox.Show("Ny version hentes");
+                    string url = @"https://www.bignox.com/en/download/fullPackage";
+
+                    WebClient clientweb = new WebClient();
+                    clientweb.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(Client_DownloadCompleted);
+                    clientweb.DownloadProgressChanged += new DownloadProgressChangedEventHandler(Client_ProgressChanged);
+                    sw.Start();
+                    try
+                    {
+                        clientweb.DownloadFileAsync(new Uri(url), @"Overførsler\NoxInstall.exe");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
+            else if (item.Contains("Nox.exe") && update == false)
+            {
+                noxdone = true;
+            }
+            if (item.Contains("soffice.exe") && update == true/* && noxdone == true*/)
+            {
+                MessageBoxResult result = MessageBox.Show("Der er en ny version af programmet, Vil du opdatere?", "Spørgsmål", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    if (File.Exists(@"Overførsler\OpenOfficeInstall.exe"))
+                    {
+                        File.Delete(@"Overførsler\OpenOfficeInstall.exe");
+                    }
+                    MessageBox.Show("Ny version hentes");
+                    string url = @"https://sourceforge.net/projects/openofficeorg.mirror/files/latest/download";
+
+                    WebClient clientweb = new WebClient();
+                    clientweb.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(Client1_DownloadCompleted);
+                    clientweb.DownloadProgressChanged += new DownloadProgressChangedEventHandler(Client_ProgressChanged);
+                    sw.Start();
+                    try
+                    {
+                        clientweb.DownloadFileAsync(new Uri(url), @"Overførsler\OpenOfficeInstall.exe");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Denne Version er den nyeste version af programmet");
+            }
+
             }
         }
     }
