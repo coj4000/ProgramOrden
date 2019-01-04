@@ -45,7 +45,7 @@ namespace ProgramLogik
         }
         public void DrevSkan(string path)
         {
-            SetAccessRule(@"C:\");
+            SetAccessRegel(@"C:\");
             //DirectoryInfo di = new DirectoryInfo(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location));
             //FileInfo[] info = di.GetFiles("*.exe");
             //foreach (FileInfo i in info)
@@ -63,7 +63,7 @@ namespace ProgramLogik
             }
             //logicList = listeStrings;
         }
-        public static void SetAccessRule(string directory)
+        public static void SetAccessRegel(string directory)
         {
             System.Security.AccessControl.DirectorySecurity sec = System.IO.Directory.GetAccessControl(directory);
             FileSystemAccessRule accRule = new FileSystemAccessRule(Environment.UserDomainName + "\\" + Environment.UserName, FileSystemRights.FullControl, AccessControlType.Allow);
