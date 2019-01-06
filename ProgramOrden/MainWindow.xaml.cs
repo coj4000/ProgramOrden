@@ -39,10 +39,10 @@ namespace ProgramOrden
             listViewFiler.ItemsSource = logik.logicList;
         }
 
-        private void ButtonOpen_Click(object sender, RoutedEventArgs e)
-        {
-            logikinst.OpenApp(listViewFiler.SelectedValue.ToString());
-        }
+        //private void ButtonOpen_Click(object sender, RoutedEventArgs e)
+        //{
+        //    logikinst.OpenApp(listViewFiler.SelectedValue.ToString());
+        //}
 
         private void ButtonVersionUpdate_Click(object sender, RoutedEventArgs e)
         {

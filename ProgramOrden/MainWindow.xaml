@@ -24,15 +24,15 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Start Selvopdatering" Name="ButtonSelvOpdater" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Width="120" Margin="200,52,0,52" Click="ButtonSelvOpdater_Click"/>
-        <Button Content="Åbn" Grid.Column="2" HorizontalAlignment="Left" Margin="100,52,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Name="ButtonOpen" Click="ButtonOpen_Click"/>
-        <Button Content="Find Opdatering" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Grid.Column="1" Margin="10,52,0,0" Grid.Row="2" Click="ButtonVersionUpdate_Click"/>
+        <Button Content="Start Selvopdatering" Name="ButtonSelvOpdater" Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" FontSize="15" Width="150" Margin="160,20,0,52" Click="ButtonSelvOpdater_Click"/>
+        <!--<Button Content="Åbn" Grid.Column="2" HorizontalAlignment="Left" Margin="100,52,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Name="ButtonOpen" Click="ButtonOpen_Click"/>-->
+        <Button Content="Find Opdatering" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" FontSize="15" Grid.Column="1" Margin="10,20,0,0" Grid.Row="2" Click="ButtonVersionUpdate_Click"/>
         <ProgressBar Name="progressBar1"  Grid.Column="2" HorizontalAlignment="Left" Margin="73,93,0,67" Grid.Row="1" Width="100"/>
         <Label Name="labelspeed" Content="" Grid.Column="2" HorizontalAlignment="Left" Margin="109,108,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         <Label Name="labelperc" Content="" Grid.Column="2" HorizontalAlignment="Left" Margin="111,139,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         <!--<Button Content="gzipdwnload" Name="Button_Gzip" Click="Button_Gzip_Click" HorizontalAlignment="Left" Margin="104,72,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75"/>-->
         <Label Name="labeldownloadet" Content="" Grid.Column="2" HorizontalAlignment="Left" Margin="111,0,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-        <Button Content="Opdater Automatisk" Grid.Column="1" Name="ButtonAuto" HorizontalAlignment="Left" Margin="10,94,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" Click="ButtonAuto_Click" />
+        <Button Content="Opdater Automatisk" Grid.Column="1" Name="ButtonAuto" HorizontalAlignment="Left" Margin="10,74,0,0" FontSize="15" Grid.Row="2" VerticalAlignment="Top" Width="150" Click="ButtonAuto_Click" />
     </Grid>
 </Window>
 
